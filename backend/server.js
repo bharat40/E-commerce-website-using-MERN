@@ -135,6 +135,27 @@ app.post('/product', async (req, res) => {
 
 
 // router to update product in database
+app.put('/product/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const productData = req.body;
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            res.status(400).json({ Error: "Invalid product ID" });
+        }
+        const updatedProduct = await product.findByIdAndUpdate(productId, productData, {
+            new: true,
+            runValidators: true
+        })
+        if (!updatedProduct) {
+            res.status(404).json({ error: "Product not found" })
+        }
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        console.log("Error: ", error);
+        res.status(500).json({ Error: "Internal server error" })
+    }
+})
+
 
 // router to delete product in database
 
