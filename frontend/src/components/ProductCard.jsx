@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ProductCard = ({ name, category, description, price, image }) => {
+const ProductCard = ({ name, category, description, price, image, idx }) => {
   const [isClicked, setIsClicked] = useState(false);
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -8,6 +8,7 @@ const ProductCard = ({ name, category, description, price, image }) => {
 
   return (
     <div
+      key={idx}
       className={`border flex flex-col  md:flex-row p-2  gap-3 w-[500px] bg-gray-900 hover:bg-gray-800 ${
         isClicked ? "border-green-500 border-4" : "border-gray-300"
       }`}

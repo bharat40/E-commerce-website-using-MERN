@@ -32,7 +32,7 @@ const Inventory = () => {
         Products in our inventory
       </h1>
       <div className="flex flex-wrap justify-center gap-5">
-        {products.map((product) => {
+        {products.map((product, idx) => {
           return (
             <ProductCard
               name={product.name}
@@ -40,6 +40,7 @@ const Inventory = () => {
               description={product.description}
               image={product.image}
               price={product.price}
+              idx={idx}
             />
           );
         })}
