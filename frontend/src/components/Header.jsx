@@ -20,6 +20,11 @@ const Header = () => {
           <Link to="/cart">
             <li className="text-green-500 hover:text-green-400">Cart</li>
           </Link>
+          <Link to="/addproduct">
+            <li className="text-green-500 hover:text-green-400">
+              Create product
+            </li>
+          </Link>
         </ul>
       </div>
     </div>

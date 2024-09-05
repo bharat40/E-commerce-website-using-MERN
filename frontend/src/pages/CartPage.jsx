@@ -3,7 +3,7 @@ import Cart from "../components/Cart";
 
 const CartPage = () => {
   return (
-    <div>
+    <div className="flex justify-center min-h-screen bg-black text-white  items-center font-bold text-3xl">
       <Cart />
     </div>
   );
