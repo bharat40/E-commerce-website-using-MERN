@@ -7,6 +7,7 @@ const cors = require('cors');
 
 // middleware
 app.use(cors());
+app.use(express.json());
 
 // product schema
 const productSchema = new mongoose.Schema({
@@ -90,17 +91,17 @@ const products = [
 
 
 // router to add initial products to database
-app.post('/product', async (req, res) => {
-    try {
-        await product.insertMany(products)
-        res.status(200).json(products);
-        console.log("Initial products added to database");
+// app.post('/product', async (req, res) => {
+//     try {
+//         await product.insertMany(products)
+//         res.status(200).json(products);
+//         console.log("Initial products added to database");
 
-    } catch (error) {
-        console.log("Error: ", error);
-        res.status(500).json({ "Error": error })
-    }
-})
+//     } catch (error) {
+//         console.log("Error: ", error);
+//         res.status(500).json({ "Error": error })
+//     }
+// })
 
 // router to get all products in database
 app.get('/product', async (req, res) => {
@@ -112,6 +113,30 @@ app.get('/product', async (req, res) => {
         res.status(500).json({ error: "Internal server error" })
     }
 })
+
+// router to add product in database
+app.post('/product', async (req, res) => {
+    try {
+        const newProductData = req.body;
+
+        // Create a new instance of the Product model
+        const newProduct = new product(newProductData);
+
+        // Save the new product to the database
+        const savedProduct = await newProduct.save();
+
+        // Respond with the saved product and a 201 status code
+        res.status(200).json(savedProduct);
+    } catch (error) {
+        console.log("Error: ", error);
+        res.status(500).json({ Error: "Internal server error" })
+    }
+})
+
+
+// router to update product in database
+
+// router to delete product in database
 
 // connecting to mongodb database
 const connectDatabase = async () => {
