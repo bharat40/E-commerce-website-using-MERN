@@ -15,7 +15,7 @@ const ProductCard = ({ name, category, description, price, image }) => {
     >
       <div className="w-[150px] h-[150px]">
         {/* product image */}
-        <img src={image} alt="product-image" className="w-full h-full" />
+        <img src={image} alt="product-image" className="w-full h-full object-cover" />
       </div>
       <div className="text-gray-200">
         {/* product details */}
