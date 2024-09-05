@@ -1,18 +1,36 @@
 import React, { useState } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
+import { toast } from "react-toastify";
 
-const ProductCard = ({ name, category, description, price, image, idx }) => {
-  const [isClicked, setIsClicked] = useState(false);
-  const handleClick = () => {
-    setIsClicked(!isClicked);
+const ProductCard = ({
+  name,
+  category,
+  description,
+  price,
+  image,
+  id,
+  onDelete,
+}) => {
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/product/${id}`, {
+        method: "DELETE",
+      });
+      onDelete(id);
+      if (!response) {
+        return console.log("unable to delete");
+      }
+      toast.success("Product deleted");
+    } catch (error) {
+      console.log("Error: ", error);
+    }
   };
 
   return (
     <div
-      key={idx}
-      className={`border flex flex-col  md:flex-row p-2  gap-3 w-[500px] bg-gray-900 hover:bg-gray-800 ${
-        isClicked ? "border-green-500 border-4" : "border-gray-300"
-      }`}
-      onClick={handleClick}
+      key={id}
+      className="border flex flex-col  md:flex-row p-2  gap-3 w-[500px] bg-gray-900 hover:bg-gray-800"
     >
       <div className="w-[150px] h-[150px]">
         {/* product image */}
@@ -30,12 +48,20 @@ const ProductCard = ({ name, category, description, price, image, idx }) => {
         <h1 className="font-bold">Price: {price}</h1>
         <div className="flex gap-2">
           {/* add to cart button */}
-          <button className="bg-green-300 text-black py-1 px-2 rounded hover:bg-green-400">
-            add to cart
+          <button className="bg-green-300 flex items-center text-black py-1 px-2 rounded hover:bg-green-400 ">
+            Update
+            <CiEdit className="text-xl" />
           </button>
           {/* remove from cart button */}
-          <button className="bg-red-300 text-black py-1 px-2 rounded hover:bg-red-400">
-            remove from cart
+          <button
+            className="bg-red-300 flex items-center text-black py-1 px-2 rounded hover:bg-red-400"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete(id);
+            }}
+          >
+            Delete
+            <FaRegTrashAlt />
           </button>
         </div>
       </div>

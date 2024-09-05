@@ -17,7 +17,7 @@ const Inventory = () => {
   };
   useEffect(() => {
     getData();
-  }, []);
+  }, [<ProductCard />]);
 
   // function to go to top
   const goToTop = () => {
@@ -26,13 +26,16 @@ const Inventory = () => {
       behavior: "smooth",
     });
   };
+  const handleDelete = (productId) => {
+    setProducts(products.filter((product) => product.id !== productId));
+  };
   return (
     <div className="bg-black min-h-screen p-5">
       <h1 className="text-center text-white  font-extrabold text-2xl mb-3">
         Products in our inventory
       </h1>
       <div className="flex flex-wrap justify-center gap-5">
-        {products.map((product, idx) => {
+        {products.map((product) => {
           return (
             <ProductCard
               name={product.name}
@@ -40,7 +43,8 @@ const Inventory = () => {
               description={product.description}
               image={product.image}
               price={product.price}
-              idx={idx}
+              id={product._id}
+              onDelete={handleDelete}
             />
           );
         })}
