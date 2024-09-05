@@ -140,7 +140,7 @@ app.put('/product/:id', async (req, res) => {
         const productId = req.params.id;
         const productData = req.body;
         if (!mongoose.Types.ObjectId.isValid(productId)) {
-            res.status(400).json({ Error: "Invalid product ID" });
+            return res.status(400).json({ Error: "Invalid product ID" });
         }
         const updatedProduct = await product.findByIdAndUpdate(productId, productData, {
             new: true,
@@ -158,6 +158,24 @@ app.put('/product/:id', async (req, res) => {
 
 
 // router to delete product in database
+app.delete('/product/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            return res.status(400).json({ Error: "Invalid product ID" });
+        }
+        const deletedProduct = await product.findByIdAndDelete(productId);
+        if (!deletedProduct) {
+            res.status(404).json({ error: "Product not found" })
+        }
+        res.status(200).json({ message: "product deleted" })
+    } catch (error) {
+        console.log("Error: ", error);
+        res.status(500).json({ error: "Internal server error" })
+    }
+})
+
+
 
 // connecting to mongodb database
 const connectDatabase = async () => {
