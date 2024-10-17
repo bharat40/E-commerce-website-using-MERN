@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { toast } from "react-toastify";
+import { useStore } from "../store/store";
 
 const ProductCard = ({
   name,
@@ -28,6 +29,8 @@ const ProductCard = ({
     }
   };
 
+  const addToCart = useStore((state) => state.addToCart);
+
   return (
     <div
       key={id}
@@ -48,12 +51,12 @@ const ProductCard = ({
         <h1 className="font-bold">Description: {description}</h1>
         <h1 className="font-bold">Price: {price}</h1>
         <div className="flex gap-2">
-          {/* add to cart button */}
+          {/* update in db */}
           <button className="bg-green-300 flex items-center text-black py-1 px-2 rounded hover:bg-green-400 ">
             Update
             <CiEdit className="text-xl" />
           </button>
-          {/* remove from cart button */}
+          {/* remove from db button */}
           <button
             className="bg-red-300 flex items-center text-black py-1 px-2 rounded hover:bg-red-400"
             onClick={(e) => {
@@ -63,6 +66,12 @@ const ProductCard = ({
           >
             Delete
             <FaRegTrashAlt />
+          </button>
+          <button
+            className="bg-blue-300 flex items-center text-black py-1 px-2 rounded hover:bg-blue-400"
+            onClick={addToCart}
+          >
+            add
           </button>
         </div>
       </div>
