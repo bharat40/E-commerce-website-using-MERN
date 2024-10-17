@@ -17,11 +17,12 @@ const ProductCard = ({
       const response = await fetch(`http://localhost:5000/product/${id}`, {
         method: "DELETE",
       });
-      onDelete(id);
+
       if (!response) {
         return console.log("unable to delete");
       }
       toast.success("Product deleted");
+      onDelete(id);
     } catch (error) {
       console.log("Error: ", error);
     }
