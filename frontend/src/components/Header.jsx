@@ -13,6 +13,11 @@ const Header = () => {
       <div>
         {/* navitems */}
         <ul className="flex gap-3 font-bold">
+          <Link to="/register">
+            <li className="text-green-500 hover:text-green-400">
+              Register/Login
+            </li>
+          </Link>
           <Link to="/">
             <li className="text-green-500 hover:text-green-400">Home</li>
           </Link>
