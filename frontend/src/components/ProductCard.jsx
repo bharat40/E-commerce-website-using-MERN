@@ -65,9 +65,11 @@ const ProductCard = ({
           </button>
           <button
             className="bg-blue-300 flex items-center text-black py-1 px-2 rounded hover:bg-blue-400"
-            onClick={addToCart}
+            onClick={() =>
+              addToCart({ id, name, category, description, price, image })
+            }
           >
-            add
+            Add to Cart
           </button>
         </div>
       </div>
