@@ -36,13 +36,9 @@ const ProductCard = ({
       key={id}
       className="border flex flex-col  md:flex-row p-2  gap-3 w-[500px] bg-gray-900 hover:bg-gray-800"
     >
-      <div className="w-[150px] h-[150px]">
+      <div className="w-[500px] h-[200px]">
         {/* product image */}
-        <img
-          src={image}
-          alt="product-image"
-          className="w-full h-full object-cover"
-        />
+        <img src={image} alt="product-image" className="w-full h-full" />
       </div>
       <div className="text-gray-200">
         {/* product details */}
